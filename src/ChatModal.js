@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, Box, TextField, Button, CircularProgress } from '@mui/material';
+import { Modal, Box, TextField, Button } from '@mui/material';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 import './ChatModal.css';
 
 const ChatModal = ({ open, handleClose, student }) => {
@@ -58,22 +59,35 @@ const ChatModal = ({ open, handleClose, student }) => {
     }
   };
 
+  function formatMarkdownText(input) {
+    // Replace escaped newlines with actual newline characters
+    let correctedText = input.replace(/\\n/g, '\n');
+
+    // Remove spaces before headings to prevent them from being seen as code blocks
+    correctedText = correctedText.replace(/(^\s+|\s+$|^)(#{1,6})([ \t]+)/gm, '$1$2 ');
+
+    return correctedText;
+  }
+
+  const ChatMessage = ({ text }) => {
+    // Format the text to ensure proper Markdown rendering
+    const formattedText = formatMarkdownText(text);
+
+    return (
+      <ReactMarkdown>{formattedText}</ReactMarkdown>
+    );
+  }
+
   return (
     <Modal open={open} onClose={handleClose} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box className="modalContainer">
-  {isLoading ? (
-    <Box className="loadingDots">
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
-    </Box>
-  ) : (
-    <>
-      <Box className="messageArea">
-        {messages.map((msg, index) => (
-          <Box key={index} className={msg.user ? "userMessage" : "aiMessage"}>{msg.text}</Box>
-        ))}
-        {isTyping && (
+        <Box className="messageArea">
+          {messages.map((msg, index) => (
+            <Box key={index} className={msg.user ? "userMessage" : "aiMessage"}>
+              <ChatMessage text={msg.text} />
+            </Box>
+          ))}
+          {isTyping && (
             <Box className="typingIndicator">
               <div className="typingDot"></div>
               <div className="typingDot"></div>
@@ -81,16 +95,13 @@ const ChatModal = ({ open, handleClose, student }) => {
             </Box>
           )}
           <div ref={messagesEndRef} />
+        </Box>
+        <Box component="form" onSubmit={handleSendMessage} className="formContainer" noValidate>
+          <TextField fullWidth variant="outlined" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)} sx={{ mb: 2 }} />
+          <Button variant="contained" type="submit">Send</Button>
+        </Box>
       </Box>
-      <Box component="form" onSubmit={handleSendMessage} className="formContainer" noValidate>
-        <TextField fullWidth variant="outlined" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)} sx={{ mb: 2 }} />
-        <Button variant="contained" type="submit">Send</Button>
-      </Box>
-    </>
-  )}
-</Box>
-
-    </Modal>
+    </Modal >
   );
 };
 
