@@ -1,0 +1,50 @@
+.studentContainer {
+  max-width: 600px;
+  margin-top: 16px;
+}
+
+.studentPaper {
+  padding: 16px;
+  margin-top: 16px;
+  border: 1px solid #ccc;
+}
+
+.studentBox {
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  color: #888; /* Lighten the text color for values */
+  margin-bottom: 16px; /* Adds spacing between boxes */
+}
+
+.studentTypographyHeader {
+  margin-top: 32px;
+}
+
+.studentContainer .studentGridItemLabel {
+  font-weight: 800;
+}
+
+.valueText {
+  color: #aaa; /* Additional class for lightening value text */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .studentContainer {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .studentPaper, .studentBox {
+    padding: 8px;
+  }
+
+  .studentTypographyHeader {
+    margin-top: 16px; /* Reduce top margin on smaller screens */
+  }
+}
+
+.studentBox:focus-within {
+  border-color: #0056b3; /* Highlight the box when an element inside it is focused */
+}

@@ -1,0 +1,45 @@
+.modalContainer {
+  width: 500px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageArea {
+  height: 400px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  display: flex;        /* Changed to flex to enable align-self */
+  flex-direction: column; /* Messages stack vertically */
+}
+
+.userMessage, .aiMessage {
+  max-width: 80%;
+  padding: 10px;
+  margin-bottom: 4px;
+  border-radius: 15px;
+  color: white;
+  width: fit-content; /* Ensures the bubble size fits the content */
+}
+
+.userMessage {
+  background-color: #007BFF;
+  align-self: flex-end; /* Right alignment for user messages */
+  border-bottom-right-radius: 2px;
+}
+
+.aiMessage {
+  background-color: #aaaaaa;
+  align-self: flex-start; /* Left alignment for AI messages */
+  border-bottom-left-radius: 2px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
