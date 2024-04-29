@@ -8,8 +8,6 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import { Link } from 'react-router-dom';
 
-const drawerWidth = 240;
-
 export default function Sidebar() {
   return (
     <Box sx={{ overflow: 'auto' }}>
