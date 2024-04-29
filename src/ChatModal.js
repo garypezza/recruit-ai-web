@@ -8,6 +8,7 @@ const ChatModal = ({ open, handleClose, student }) => {
   const [message, setMessage] = useState('');
   const [threadId, setThreadId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -33,8 +34,10 @@ const ChatModal = ({ open, handleClose, student }) => {
     event.preventDefault();
     if (message.trim()) {
       setMessages([...messages, { text: message, user: true }]);
+      setIsTyping(true);
       const response = await sendMessageToGPT(message, threadId);
       setMessages(prev => [...prev, { text: response, user: false }]);
+      setIsTyping(false);
       setMessage('');
     }
   };
@@ -58,21 +61,35 @@ const ChatModal = ({ open, handleClose, student }) => {
   return (
     <Modal open={open} onClose={handleClose} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box className="modalContainer">
-        {isLoading ? <CircularProgress style={{ alignSelf: 'center', margin: 'auto' }} /> : (
-          <>
-            <Box className="messageArea">
-              {messages.map((msg, index) => (
-                <Box key={index} className={msg.user ? "userMessage" : "aiMessage"}>{msg.text}</Box>
-              ))}
-              <div ref={messagesEndRef} />
+  {isLoading ? (
+    <Box className="loadingDots">
+      <div className="dot"></div>
+      <div className="dot"></div>
+      <div className="dot"></div>
+    </Box>
+  ) : (
+    <>
+      <Box className="messageArea">
+        {messages.map((msg, index) => (
+          <Box key={index} className={msg.user ? "userMessage" : "aiMessage"}>{msg.text}</Box>
+        ))}
+        {isTyping && (
+            <Box className="typingIndicator">
+              <div className="typingDot"></div>
+              <div className="typingDot"></div>
+              <div className="typingDot"></div>
             </Box>
-            <Box component="form" onSubmit={handleSendMessage} className="formContainer" noValidate>
-              <TextField fullWidth variant="outlined" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)} sx={{ mb: 2 }} />
-              <Button variant="contained" type="submit">Send</Button>
-            </Box>
-          </>
-        )}
+          )}
+          <div ref={messagesEndRef} />
       </Box>
+      <Box component="form" onSubmit={handleSendMessage} className="formContainer" noValidate>
+        <TextField fullWidth variant="outlined" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)} sx={{ mb: 2 }} />
+        <Button variant="contained" type="submit">Send</Button>
+      </Box>
+    </>
+  )}
+</Box>
+
     </Modal>
   );
 };
