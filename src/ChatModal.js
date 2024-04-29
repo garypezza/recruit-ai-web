@@ -82,27 +82,37 @@ const ChatModal = ({ open, handleClose, student }) => {
     <Modal open={open} onClose={handleClose} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box className="modalContainer">
         <Box className="messageArea">
-          {messages.map((msg, index) => (
-            <Box key={index} className={msg.user ? "userMessage" : "aiMessage"}>
-              <ChatMessage text={msg.text} />
+          {isLoading ? (
+            <Box className="loadingDots">
+              <div className="dot"></div>
+              <div className="dot"></div>
+              <div className="dot"></div>
             </Box>
-          ))}
-          {isTyping && (
-            <Box className="typingIndicator">
-              <div className="typingDot"></div>
-              <div className="typingDot"></div>
-              <div className="typingDot"></div>
-            </Box>
+          ) : (
+            <>
+              {messages.map((msg, index) => (
+                <Box key={index} className={msg.user ? "userMessage" : "aiMessage"}>
+                  <ChatMessage text={msg.text} />
+                </Box>
+              ))}
+              {isTyping && (
+                <Box className="typingIndicator">
+                  <div className="typingDot"></div>
+                  <div className="typingDot"></div>
+                  <div className="typingDot"></div>
+                </Box>
+              )}
+              <div ref={messagesEndRef} />
+            </>
           )}
-          <div ref={messagesEndRef} />
         </Box>
         <Box component="form" onSubmit={handleSendMessage} className="formContainer" noValidate>
           <TextField fullWidth variant="outlined" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)} sx={{ mb: 2 }} />
           <Button variant="contained" type="submit">Send</Button>
         </Box>
       </Box>
-    </Modal >
+    </Modal>
   );
-};
-
+}
+  
 export default ChatModal;
