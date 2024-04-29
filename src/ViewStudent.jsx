@@ -12,7 +12,7 @@ function ViewStudent() {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/students/${studentId}`);
+        const response = await axios.get(process.env.REACT_APP_RECRUIT_AI_API + `/students/${studentId}`);
         setStudent(response.data);
       } catch (error) {
         console.error('Error fetching student data:', error);

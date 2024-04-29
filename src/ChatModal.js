@@ -13,7 +13,7 @@ const ChatModal = ({ open, handleClose, student }) => {
   useEffect(() => {
     if (open) {
       setIsLoading(true);
-      axios.post('http://localhost:3001/chats/newChat')
+      axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/newChat')
         .then(response => {
           setThreadId(response.data.threadId);
           setIsLoading(false);
@@ -43,7 +43,7 @@ const ChatModal = ({ open, handleClose, student }) => {
     try {
       const studentJSON = JSON.stringify(student);
       const personalizedInstructions = `...`;
-      const response = await axios.post('http://localhost:3001/chats/message', { prompt: text, instructions: personalizedInstructions, threadId: threadId });
+      const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', { prompt: text, instructions: personalizedInstructions, threadId: threadId });
       return response.data.message.trim();
     } catch (error) {
       console.error('Error communicating with OpenAI:', error);

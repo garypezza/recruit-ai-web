@@ -71,7 +71,7 @@ function StudentForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/students', student);
+      const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/students', student);
       console.log(response.data);
       alert('Student created successfully!');
     } catch (error) {
