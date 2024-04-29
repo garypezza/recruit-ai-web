@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, Box, TextField, Button, CircularProgress } from '@mui/material';
+import { Modal, Box, TextField, Button } from '@mui/material';
 import axios from 'axios';
 import './ChatModal.css';
 
