@@ -42,7 +42,11 @@ const ChatModal = ({ open, handleClose, student }) => {
   const sendMessageToGPT = async (text, threadId) => {
     try {
       const studentJSON = JSON.stringify(student);
-      const personalizedInstructions = `...`;
+      const personalizedInstructions =
+        `The user is chatting with you via a chat dialog. They are looking for advice to get started on the college recruitment process. ` +
+        `They are an avid high school golfer and want to golf in college.  They want to chat with coaches and make themselves known so` +
+        `they can go to the college of their choice` +
+        `here is some JSON describing the student ${studentJSON}`
       const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', { prompt: text, instructions: personalizedInstructions, threadId: threadId });
       return response.data.message.trim();
     } catch (error) {

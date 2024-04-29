@@ -7,7 +7,6 @@ import ViewStudent from './ViewStudent';
 import AdminPanel from './AdminPanel';
 import HomePage from './HomePage';
 import Sidebar from './Sidebar';
-import StudentForm from './StudentForm';
 import { StudentProvider } from './StudentContext';
 import { createRoot } from 'react-dom/client';
 import { ModalProvider } from './ModalContext';  
