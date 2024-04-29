@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import StudentForm from './StudentForm';
 
 function AdminPanel() {
@@ -39,7 +40,9 @@ function AdminPanel() {
             {students.map((student) => (
               <TableRow key={student._id}>
                 <TableCell component="th" scope="row">
-                  {student.name}
+                  <Link to={`/student/${student._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {student.name}
+                  </Link>
                 </TableCell>
                 <TableCell align="right">{student.age}</TableCell>
                 <TableCell align="right">{student.grade}</TableCell>
@@ -52,7 +55,6 @@ function AdminPanel() {
       </TableContainer>
       <StudentForm/>
     </Container>
-    
   );
 }
 
