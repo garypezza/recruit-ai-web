@@ -34,9 +34,10 @@
 }
 
 .aiMessage {
-  background-color: #aaaaaa;
+  background-color: #cccccc;
   align-self: flex-start; /* Left alignment for AI messages */
   border-bottom-left-radius: 2px;
+  color:#111111
 }
 
 .formContainer {

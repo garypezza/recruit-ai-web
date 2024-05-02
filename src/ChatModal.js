@@ -11,6 +11,18 @@ const ChatModal = ({ open, handleClose, student }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  let openingMessage = 
+
+  `Hi <first name>! I'm an AI-based college golf recruitment consultant. I'm here to ensure your recruiting journey is successful using my knowledge of the entire recruiting process and best practices. 
+  
+  I also have information about all 1100+ college golf programs in the U.S. including coach names and email addresses, roster makeup, scoring data and how many spots a coach will need to fill from your graduating class. I can help you find likely fits based on your golf resume, academic profile and school preferences. 
+  
+  Ask me anything! Some common questions and requests to get you started:
+  
+  - How do I create a compelling golf resume that will get me noticed by coaches?
+  - What tournaments should I play in to have a chance to play at a DI, DII, or DIII school?
+  - Write me an email that’s likely to get noticed by a coach based on my profile information.
+  - What specific schools should I target based on my scores and preferences?`
 
   useEffect(() => {
     if (open) {
@@ -19,6 +31,8 @@ const ChatModal = ({ open, handleClose, student }) => {
         .then(response => {
           setThreadId(response.data.threadId);
           setIsLoading(false);
+          const openingMessageWithName = replaceFirstName(openingMessage, student.name)
+          setMessages([{ text: openingMessageWithName, user: false }]);
         })
         .catch(error => {
           console.error('Error creating new thread:', error);
@@ -43,14 +57,22 @@ const ChatModal = ({ open, handleClose, student }) => {
     }
   };
 
+  function replaceFirstName(text, fullName) {
+    let [firstName, lastName] = fullName.split(" ");
+    const regex = /<first name>/g;
+    return text.replace(regex, firstName);
+}
+
   const sendMessageToGPT = async (text, threadId) => {
     try {
+      const openingMessageWithName = replaceFirstName(openingMessage, student.name);
       const studentJSON = JSON.stringify(student);
       const personalizedInstructions =
         `The user is chatting with you via a chat dialog. They are looking for advice to get started on the college recruitment process. ` +
         `They are an avid high school golfer and want to golf in college.  They want to chat with coaches and make themselves known so` +
         `they can go to the college of their choice` +
-        `here is some JSON describing the student ${studentJSON}`
+        `here is some JSON describing the student ${studentJSON}` + 
+        `They will see this opening message from you... ` + openingMessageWithName
       const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', { prompt: text, instructions: personalizedInstructions, threadId: threadId });
       return response.data.message.trim();
     } catch (error) {
@@ -114,5 +136,5 @@ const ChatModal = ({ open, handleClose, student }) => {
     </Modal>
   );
 }
-  
+
 export default ChatModal;
