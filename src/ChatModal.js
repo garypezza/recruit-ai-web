@@ -58,7 +58,7 @@ const ChatModal = ({ open, handleClose, student }) => {
   };
 
   function replaceFirstName(text, fullName) {
-    let [firstName, lastName] = fullName.split(" ");
+    let [firstName] = fullName.split(" ");
     const regex = /<first name>/g;
     return text.replace(regex, firstName);
 }
