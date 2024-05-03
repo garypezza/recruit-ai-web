@@ -11,7 +11,7 @@ const ChatModal = ({ open, handleClose, student }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
-  let openingMessage = 
+  const openingMessage = 
 
   `Hi <first name>! I'm an AI-based college golf recruitment consultant. I'm here to ensure your recruiting journey is successful using my knowledge of the entire recruiting process and best practices. 
   
@@ -21,11 +21,11 @@ const ChatModal = ({ open, handleClose, student }) => {
   
   - How do I create a compelling golf resume that will get me noticed by coaches?
   - What tournaments should I play in to have a chance to play at a DI, DII, or DIII school?
-  - Write me an email that’s likely to get noticed by a coach based on my profile information.
+  - Write me an email that's likely to get noticed by a coach based on my profile information.
   - What specific schools should I target based on my scores and preferences?`
 
   useEffect(() => {
-    if (open) {
+    if (open && student) {
       setIsLoading(true);
       axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/newChat')
         .then(response => {
@@ -39,7 +39,7 @@ const ChatModal = ({ open, handleClose, student }) => {
           setIsLoading(false);
         });
     }
-  }, [open]);
+  }, [open, openingMessage, student]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
