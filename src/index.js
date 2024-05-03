@@ -33,7 +33,7 @@ root.render(
               >
                 <Routes>
                   <Route path="/" element={<HomePage />} />
-                  <Route path="/student/:studentId" element={<ViewStudent />} />
+                  <Route path="/student/" element={<ViewStudent />} />
                   <Route path="/admin" element={<AdminPanel />} />
                   {/* Add more routes as needed */}
                 </Routes>

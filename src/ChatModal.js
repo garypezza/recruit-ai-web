@@ -29,10 +29,22 @@ const ChatModal = ({ open, handleClose, student }) => {
       setIsLoading(true);
       axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/newChat')
         .then(response => {
-          setThreadId(response.data.threadId);
-          setIsLoading(false);
-          const openingMessageWithName = replaceFirstName(openingMessage, student.name)
-          setMessages([{ text: openingMessageWithName, user: false }]);
+          const threadId = response.data.threadId; // Retrieve threadId from response
+          setThreadId(threadId);
+          const openingMessageWithName = replaceFirstName(openingMessage, student.name);
+          
+          // Make the second axios call inside the first axios call's .then() block
+          axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', 
+            { prompt: "Here is some information about me " + JSON.stringify(student) + 
+            " Treat this as additional information but no need to respond yet", threadId: threadId })
+            .then(response => {
+              setIsLoading(false);
+              setMessages([{ text: openingMessageWithName, user: false }]);
+            })
+            .catch(error => {
+              console.error('Error sending message:', error);
+              setIsLoading(false);
+            });
         })
         .catch(error => {
           console.error('Error creating new thread:', error);
@@ -40,6 +52,7 @@ const ChatModal = ({ open, handleClose, student }) => {
         });
     }
   }, [open, openingMessage, student]);
+  
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -61,19 +74,11 @@ const ChatModal = ({ open, handleClose, student }) => {
     let [firstName] = fullName.split(" ");
     const regex = /<first name>/g;
     return text.replace(regex, firstName);
-}
+  }
 
-  const sendMessageToGPT = async (text, threadId) => {
+  async function sendMessageToGPT(text, threadId, instructions) {
     try {
-      const openingMessageWithName = replaceFirstName(openingMessage, student.name);
-      const studentJSON = JSON.stringify(student);
-      const personalizedInstructions =
-        `The user is chatting with you via a chat dialog. They are looking for advice to get started on the college recruitment process. ` +
-        `They are an avid high school golfer and want to golf in college.  They want to chat with coaches and make themselves known so` +
-        `they can go to the college of their choice` +
-        `here is some JSON describing the student ${studentJSON}` + 
-        `They will see this opening message from you... ` + openingMessageWithName
-      const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', { prompt: text, instructions: personalizedInstructions, threadId: threadId });
+      const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', { prompt: text, threadId: threadId });
       return response.data.message.trim();
     } catch (error) {
       console.error('Error communicating with OpenAI:', error);

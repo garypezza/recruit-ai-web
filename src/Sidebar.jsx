@@ -19,7 +19,7 @@ export default function Sidebar() {
           <ListItemText primary="Home" />
         </ListItemButton>
         <Divider />
-        <ListItemButton component={Link} to="/student/6629b5c0599207287db2bbe9">
+        <ListItemButton component={Link} to="/student">
           <ListItemIcon>
             <AccountBoxIcon />
           </ListItemIcon>
