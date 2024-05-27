@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import { useAuth } from './AuthContext';
+import axiosInstance from './axiosInstance';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,8 +16,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const authString = btoa(`${email}:${password}`);
-      const response = await axios.post(
-        `${process.env.REACT_APP_RECRUIT_AI_API}/login`,
+      const response = await axiosInstance.post(
+        '/login',
         {},
         {
           headers: {
@@ -25,6 +25,7 @@ const Login = () => {
           }
         }
       );
+
 
       if (response.status === 200) {
         // Assume response.data contains the authentication token

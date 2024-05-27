@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container, Typography, Grid, Paper, Box } from '@mui/material';
 import './ViewStudent.css'; // Import the CSS file
 import { useStudent } from './StudentContext';
+import axiosInstance from './axiosInstance';
 
 function ViewStudent() {
   const { studentId } = useParams();
@@ -12,7 +13,7 @@ function ViewStudent() {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_RECRUIT_AI_API + `/students/`);
+        const response = await axiosInstance.get('/students/');
         setStudent(response.data[0]);
       } catch (error) {
         console.error('Error fetching student data:', error);
