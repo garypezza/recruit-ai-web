@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Box, TextField, Button } from '@mui/material';
-import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import './ChatModal.css';
+import axiosInstance from './axiosInstance';
 
 const ChatModal = ({ open, handleClose, student }) => {
   const [messages, setMessages] = useState([]);
@@ -24,17 +24,18 @@ const ChatModal = ({ open, handleClose, student }) => {
   - Write me an email that's likely to get noticed by a coach based on my profile information.
   - What specific schools should I target based on my scores and preferences?`
 
+
   useEffect(() => {
     if (open && student) {
       setIsLoading(true);
-      axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/newChat')
+      axiosInstance.post('/chats/newChat')
         .then(response => {
           const threadId = response.data.threadId; // Retrieve threadId from response
           setThreadId(threadId);
           const openingMessageWithName = replaceFirstName(openingMessage, student.name);
           
           // Make the second axios call inside the first axios call's .then() block
-          axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', 
+          axiosInstance.post('/chats/message', 
             { prompt: "Here is some information about me " + JSON.stringify(student) + 
             " Treat this as additional information but no need to respond yet", threadId: threadId })
             .then(response => {
@@ -52,6 +53,7 @@ const ChatModal = ({ open, handleClose, student }) => {
         });
     }
   }, [open, openingMessage, student]);
+  
   
 
   useEffect(() => {
@@ -78,7 +80,7 @@ const ChatModal = ({ open, handleClose, student }) => {
 
   async function sendMessageToGPT(text, threadId, instructions) {
     try {
-      const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/chats/message', { prompt: text, threadId: threadId });
+      const response = await axiosInstance.post('/chats/message', { prompt: text, threadId: threadId });
       return response.data.message.trim();
     } catch (error) {
       console.error('Error communicating with OpenAI:', error);

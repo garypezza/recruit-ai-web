@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { Container, Typography, Grid, Paper, Box } from '@mui/material';
 import './ViewStudent.css'; // Import the CSS file
 import { useStudent } from './StudentContext';

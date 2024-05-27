@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './StudentForm.css';
+import axiosInstance from './axiosInstance';
 
 function StudentForm() {
   const initialStudent = {
@@ -71,7 +71,7 @@ function StudentForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(process.env.REACT_APP_RECRUIT_AI_API + '/students', student);
+      const response = await axiosInstance.post('/students', student);
       console.log(response.data);
       alert('Student created successfully!');
     } catch (error) {

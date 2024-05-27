@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import StudentForm from './StudentForm';
+import axiosInstance from './axiosInstance';
 
 function AdminPanel() {
   const [students, setStudents] = useState([]);
@@ -10,7 +10,7 @@ function AdminPanel() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_RECRUIT_AI_API + '/students/');
+        const response = await axiosInstance.get('/students/');
         setStudents(response.data);
       } catch (error) {
         console.error('Error fetching students:', error);
