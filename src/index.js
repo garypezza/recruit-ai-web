@@ -9,39 +9,56 @@ import HomePage from './HomePage';
 import Sidebar from './Sidebar';
 import { StudentProvider } from './StudentContext';
 import { createRoot } from 'react-dom/client';
-import { ModalProvider } from './ModalContext';  
-import Layout from './Layout';  
+import { ModalProvider } from './ModalContext';
+import Layout from './Layout';
+import Login from './Login';  // Import the Login component
+import { AuthProvider } from './AuthContext';  // Import AuthProvider
+import PrivateRoute from './PrivateRoute';  // Import PrivateRoute
 
 const theme = createTheme({
   // your theme options
 });
 
-const container = document.getElementById('root')
+const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <ThemeProvider theme={theme}>
-    <CssBaseline /> {/* MUI's reset style component */}
-    <ModalProvider> {/* Wrap the Router with ModalProvider */}
-      <Router>
-        <Box sx={{ display: 'flex' }}>
-          <Sidebar />
-          <StudentProvider>
-            <Layout> {/* Wrap the main content with Layout */}
-              <Box
-                component="main"
-                sx={{ flexGrow: 1, p: 3 }}
-              >
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/student/" element={<ViewStudent />} />
-                  <Route path="/admin" element={<AdminPanel />} />
-                  {/* Add more routes as needed */}
-                </Routes>
-              </Box>
-            </Layout>
+    <CssBaseline />
+    <ModalProvider>
+      <AuthProvider> {/* Wrap the Router with AuthProvider */}
+        <Router>
+          <Box sx={{ display: 'flex' }}>
+            <Sidebar />
+            <StudentProvider>
+              <Layout>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route
+                      path="/student/"
+                      element={
+                        <PrivateRoute>
+                          <ViewStudent />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin"
+                      element={
+                        <PrivateRoute>
+                          <AdminPanel />
+                        </PrivateRoute>
+                      }
+                    />
+                    {/* Add more routes as needed */}
+                  </Routes>
+                </Box>
+              </Layout>
             </StudentProvider>
-        </Box>
-      </Router>
+          </Box>
+        </Router>
+      </AuthProvider>
     </ModalProvider>
   </ThemeProvider>
 );
