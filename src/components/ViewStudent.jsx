@@ -4,10 +4,29 @@ import { Container, Typography, Grid, Paper, Box } from '@mui/material';
 import '../styles/ViewStudent.css'; // Import the CSS file
 import { useStudent } from '../context/StudentContext';
 import axiosInstance from '../services/axiosInstance';
+import { Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { useModal } from '../context/ModalContext';
+import ChatModal from './ChatModal';
+
 
 function ViewStudent() {
   const { studentId } = useParams();
   const { student, setStudent } = useStudent();
+  const { isOpen, toggleModal } = useModal();
+  const buttonStyle = {
+    position: 'fixed',
+    bottom: 20,
+    right: 20,
+    backgroundColor: 'green',
+    color: 'white',
+    borderRadius: '50px',
+    padding: '10px 24px',
+    textTransform: 'none',
+    fontSize: '0.875rem',
+    minWidth: 'auto',
+    width: 'auto'
+  };
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -54,7 +73,16 @@ function ViewStudent() {
         <InfoItem label="Tournament Average" value={student.golfInfo[0].tournamentAverage} />
         <InfoItem label="Interested College Region" value={student.interests.colleges.region} />
       </Paper>
+      <Button
+        variant="contained"
+        startIcon={<AddIcon />}
+        onClick={toggleModal}
+        style={buttonStyle}>
+        Ask Recruit AI
+      </Button>
+      <ChatModal open={isOpen} handleClose={toggleModal} student={student} />
     </Container>
+
   );
 }
 export default ViewStudent;

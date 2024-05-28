@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { createRoot } from 'react-dom/client';
 import AdminPanel from './components/AdminPanel';
-import HomePage from './components/HomePage';
 import Sidebar from './components/Sidebar';
 import ViewStudent from './components/ViewStudent';
 import Layout from './components/Layout';
@@ -33,7 +32,11 @@ root.render(
               <Layout>
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                   <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={
+                      <PrivateRoute>
+                        <ViewStudent />
+                      </PrivateRoute>}
+                    />
                     <Route path="/login" element={<Login />} />
                     <Route
                       path="/student/"
