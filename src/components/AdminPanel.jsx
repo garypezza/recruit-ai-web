@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import StudentForm from './StudentForm';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../services/axiosInstance';
 
 function AdminPanel() {
   const [students, setStudents] = useState([]);

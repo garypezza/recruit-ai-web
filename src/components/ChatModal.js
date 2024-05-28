@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Box, TextField, Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import './ChatModal.css';
-import axiosInstance from './axiosInstance';
+import '../styles/ChatModal.css';
+import axiosInstance from '../services/axiosInstance';
 
 const ChatModal = ({ open, handleClose, student }) => {
   const [messages, setMessages] = useState([]);

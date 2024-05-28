@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography } from '@mui/material';
-import { useAuth } from './AuthContext';
-import axiosInstance from './axiosInstance';
+import { useAuth } from './context/AuthContext';
+import axiosInstance from './services/axiosInstance';
 
 const Login = () => {
   const [email, setEmail] = useState('');

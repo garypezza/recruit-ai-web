@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useModal } from './ModalContext';
+import { useModal } from '../context/ModalContext';
 import ChatModal from './ChatModal';
-import { useStudent } from './StudentContext';
+import { useStudent } from '../context/StudentContext';
 
 const Layout = ({ children }) => {
   const { student } = useStudent();

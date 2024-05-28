@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Typography, Grid, Paper, Box } from '@mui/material';
-import './ViewStudent.css'; // Import the CSS file
-import { useStudent } from './StudentContext';
-import axiosInstance from './axiosInstance';
+import '../styles/ViewStudent.css'; // Import the CSS file
+import { useStudent } from '../context/StudentContext';
+import axiosInstance from '../services/axiosInstance';
 
 function ViewStudent() {
   const { studentId } = useParams();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './StudentForm.css';
-import axiosInstance from './axiosInstance';
+import '../styles/StudentForm.css';
+import axiosInstance from '../services/axiosInstance';
 
 function StudentForm() {
   const initialStudent = {
