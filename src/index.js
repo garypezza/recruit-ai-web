@@ -10,6 +10,7 @@ import ViewStudent from './components/ViewStudent';
 import Layout from './components/Layout';
 import Login from './Login';
 import PrivateRoute from './PrivateRoute';
+import CreateUserPage from './components/CreateUserPage';
 import { StudentProvider } from './context/StudentContext';
 import { ModalProvider } from './context/ModalContext';
 import { AuthProvider } from './context/AuthContext';
@@ -53,6 +54,12 @@ root.render(
                           <AdminPanel />
                         </PrivateRoute>
                       }
+                    />
+                    <Route
+                      path="/create-user"
+                      element={
+                          <CreateUserPage />
+                        }
                     />
                   </Routes>
                 </Box>
