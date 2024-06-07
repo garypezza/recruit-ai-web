@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SchoolIcon from '@mui/icons-material/School';
 import EmailIcon from '@mui/icons-material/Email';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import Logout from './Logout';
 
 import { Link } from 'react-router-dom';
 
@@ -47,6 +48,11 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Admin Panel" />
         </ListItemButton>
+        <ListItemButton component={Link} to="/">
+          <ListItemText>
+            <Logout />
+          </ListItemText>
+          </ListItemButton>
       </List>
     </Box>
   );

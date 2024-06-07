@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Typography, Grid, Paper, Box } from '@mui/material';
-import '../styles/ViewStudent.css'; // Import the CSS file
+import { Container, Typography, Grid, Paper, Box, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import '../styles/ViewStudent.css';
 import { useStudent } from '../context/StudentContext';
 import axiosInstance from '../services/axiosInstance';
-import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import { useModal } from '../context/ModalContext';
 import ChatModal from './ChatModal';
-
+import StudentForm from './StudentForm';
 
 function ViewStudent() {
   const { studentId } = useParams();
   const { student, setStudent } = useStudent();
   const { isOpen, toggleModal } = useModal();
+
   const buttonStyle = {
     position: 'fixed',
     bottom: 20,
@@ -25,13 +25,13 @@ function ViewStudent() {
     textTransform: 'none',
     fontSize: '0.875rem',
     minWidth: 'auto',
-    width: 'auto'
+    width: 'auto',
   };
 
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await axiosInstance.get('/students/');
+        const response = await axiosInstance.get('/users/students/');
         setStudent(response.data[0]);
       } catch (error) {
         console.error('Error fetching student data:', error);
@@ -42,7 +42,7 @@ function ViewStudent() {
   }, [studentId, setStudent]);
 
   if (!student) {
-    return <Typography>Loading...</Typography>;
+    return <StudentForm onStudentCreated={setStudent} />;
   }
 
   const InfoItem = ({ label, value }) => (
@@ -77,12 +77,13 @@ function ViewStudent() {
         variant="contained"
         startIcon={<AddIcon />}
         onClick={toggleModal}
-        style={buttonStyle}>
+        style={buttonStyle}
+      >
         Ask Recruit AI
       </Button>
       <ChatModal open={isOpen} handleClose={toggleModal} student={student} />
     </Container>
-
   );
 }
+
 export default ViewStudent;
