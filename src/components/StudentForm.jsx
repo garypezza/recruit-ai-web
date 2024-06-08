@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/StudentForm.css';
 import axiosInstance from '../services/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+
 
 function StudentForm() {
   const initialStudent = {
@@ -28,7 +30,8 @@ function StudentForm() {
   };
 
   const [student, setStudent] = useState(initialStudent);
-
+  const navigate = useNavigate();
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setStudent({
@@ -73,7 +76,8 @@ function StudentForm() {
     try {
       const response = await axiosInstance.post('/students', student);
       console.log(response.data);
-      alert('Student created successfully!');
+      setStudent(response.data);
+      navigate(`/student/`);
     } catch (error) {
       console.error('Error posting student data:', error);
       alert('Failed to create student. Check console for details.');
