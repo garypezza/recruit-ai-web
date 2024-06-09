@@ -6,14 +6,12 @@ import { useStudent } from '../context/StudentContext';
 
 const StudentForm = () => {
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [grade, setGrade] = useState('');
-  const [highSchoolName, setHighSchoolName] = useState('');
-  const [highSchoolLocation, setHighSchoolLocation] = useState('');
   const [gpa, setGpa] = useState('');
-  const [handicap, setHandicap] = useState('');
-  const [tournamentAverage, setTournamentAverage] = useState('');
-  const [collegeRegion, setCollegeRegion] = useState('');
+  const [preferredMajors, setPreferredMajors] = useState('');
+  const [jgsProfile, setJgsProfile] = useState('');
+  const [instagramProfile, setInstagramProfile] = useState('');
+  const [twitterHandle, setTwitterHandle] = useState('');
+  const [youtube, setYoutube] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -27,24 +25,12 @@ const StudentForm = () => {
 
     const student = {
       name,
-      age,
-      grade,
-      highSchool: {
-        name: highSchoolName,
-        location: highSchoolLocation,
-      },
-      academicDetails: {
-        gpa,
-      },
-      golfInfo: [{
-        handicap,
-        tournamentAverage,
-      }],
-      interests: {
-        colleges: {
-          region: collegeRegion,
-        },
-      },
+      gpa,
+      preferredMajors: preferredMajors.split(',').map(major => major.trim()), // Split and trim input
+      jgsProfile,
+      instagramProfile,
+      twitterHandle,
+      youtube
     };
 
     try {
@@ -92,35 +78,6 @@ const StudentForm = () => {
           required
         />
         <TextField
-          label="Age"
-          type="number"
-          value={age || ''}
-          onChange={(e) => setAge(e.target.value)}
-          margin="normal"
-          fullWidth
-        />
-        <TextField
-          label="Grade"
-          value={grade || ''}
-          onChange={(e) => setGrade(e.target.value)}
-          margin="normal"
-          fullWidth
-        />
-        <TextField
-          label="High School Name"
-          value={highSchoolName || ''}
-          onChange={(e) => setHighSchoolName(e.target.value)}
-          margin="normal"
-          fullWidth
-        />
-        <TextField
-          label="High School Location"
-          value={highSchoolLocation || ''}
-          onChange={(e) => setHighSchoolLocation(e.target.value)}
-          margin="normal"
-          fullWidth
-        />
-        <TextField
           label="GPA"
           type="number"
           value={gpa || ''}
@@ -129,23 +86,38 @@ const StudentForm = () => {
           fullWidth
         />
         <TextField
-          label="Golf Handicap"
-          value={handicap || ''}
-          onChange={(e) => setHandicap(e.target.value)}
+          label="Preferred Majors"
+          value={preferredMajors || ''}
+          onChange={(e) => setPreferredMajors(e.target.value)}
+          margin="normal"
+          fullWidth
+          placeholder="Separate majors with commas"
+        />
+        <TextField
+          label="JGS Profile"
+          value={jgsProfile || ''}
+          onChange={(e) => setJgsProfile(e.target.value)}
           margin="normal"
           fullWidth
         />
         <TextField
-          label="Tournament Average"
-          value={tournamentAverage || ''}
-          onChange={(e) => setTournamentAverage(e.target.value)}
+          label="Instagram Profile"
+          value={instagramProfile || ''}
+          onChange={(e) => setInstagramProfile(e.target.value)}
           margin="normal"
           fullWidth
         />
         <TextField
-          label="Interested College Region"
-          value={collegeRegion || ''}
-          onChange={(e) => setCollegeRegion(e.target.value)}
+          label="Twitter Handle"
+          value={twitterHandle || ''}
+          onChange={(e) => setTwitterHandle(e.target.value)}
+          margin="normal"
+          fullWidth
+        />
+        <TextField
+          label="YouTube"
+          value={youtube || ''}
+          onChange={(e) => setYoutube(e.target.value)}
           margin="normal"
           fullWidth
         />

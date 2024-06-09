@@ -64,14 +64,12 @@ function ViewStudent() {
         {student.name}
       </Typography>
       <Paper className="studentPaper">
-        <InfoItem label="Age" value={student.age} />
-        <InfoItem label="Grade" value={student.grade} />
-        <InfoItem label="High School Name" value={student.highSchool.name} />
-        <InfoItem label="High School Location" value={student.highSchool.location} />
-        <InfoItem label="GPA" value={student.academicDetails.gpa} />
-        <InfoItem label="Golf Handicap" value={student.golfInfo[0].handicap} />
-        <InfoItem label="Tournament Average" value={student.golfInfo[0].tournamentAverage} />
-        <InfoItem label="Interested College Region" value={student.interests.colleges.region} />
+        <InfoItem label="GPA" value={student.gpa} />
+        <InfoItem label="Preferred Majors" value={student.preferredMajors?.join(', ') || 'N/A'} />
+        <InfoItem label="JGS Profile" value={student.jgsProfile || 'N/A'} />
+        <InfoItem label="Instagram Profile" value={student.instagramProfile || 'N/A'} />
+        <InfoItem label="Twitter Handle" value={student.twitterHandle || 'N/A'} />
+        <InfoItem label="YouTube" value={student.youtube || 'N/A'} />
       </Paper>
       <Button
         variant="contained"

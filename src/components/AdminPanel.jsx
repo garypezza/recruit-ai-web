@@ -46,10 +46,12 @@ function AdminPanel() {
             <TableRow>
               <TableCell>Id</TableCell>
               <TableCell>Name</TableCell>
-              <TableCell align="right">Age</TableCell>
-              <TableCell align="right">Grade</TableCell>
-              <TableCell align="right">High School</TableCell>
               <TableCell align="right">GPA</TableCell>
+              <TableCell align="right">Preferred Majors</TableCell>
+              <TableCell align="right">JGS Profile</TableCell>
+              <TableCell align="right">Instagram Profile</TableCell>
+              <TableCell align="right">Twitter Handle</TableCell>
+              <TableCell align="right">YouTube</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -61,10 +63,12 @@ function AdminPanel() {
                   </Link>
                 </TableCell>
                 <TableCell align="right">{student.name}</TableCell>
-                <TableCell align="right">{student.age}</TableCell>
-                <TableCell align="right">{student.grade}</TableCell>
-                <TableCell align="right">{student.highSchool ? student.highSchool.name : 'N/A'}</TableCell>
-                <TableCell align="right">{student.academicDetails ? student.academicDetails.gpa : 'N/A'}</TableCell>
+                <TableCell align="right">{student.gpa}</TableCell>
+                <TableCell align="right">{student.preferredMajors?.join(', ') || 'N/A'}</TableCell>
+                <TableCell align="right">{student.jgsProfile || 'N/A'}</TableCell>
+                <TableCell align="right">{student.instagramProfile || 'N/A'}</TableCell>
+                <TableCell align="right">{student.twitterHandle || 'N/A'}</TableCell>
+                <TableCell align="right">{student.youtube || 'N/A'}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -74,7 +78,7 @@ function AdminPanel() {
         Users List
       </Typography>
       <UsersTable users={users} />
-      <StudentForm/>
+      <StudentForm />
     </Container>
   );
 }
