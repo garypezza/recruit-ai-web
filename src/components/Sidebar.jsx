@@ -6,10 +6,13 @@ import EmailIcon from '@mui/icons-material/Email';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import Logout from './Logout';
+import { useAuth } from '../context/AuthContext';
 
 import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
+  const { user } = useAuth();
+
   return (
     <Box sx={{ overflow: 'auto' }}>
       <List>
@@ -41,18 +44,19 @@ export default function Sidebar() {
           <ListItemText primary="Email Insights" />
         </ListItemButton>
         <Divider />
-        {/* New Admin Button */}
-        <ListItemButton component={Link} to="/admin">
-          <ListItemIcon>
-            <AdminPanelSettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Admin Panel" />
-        </ListItemButton>
+        {user?.role === 'Admin' && (
+          <ListItemButton component={Link} to="/admin">
+            <ListItemIcon>
+              <AdminPanelSettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Admin Panel" />
+          </ListItemButton>
+        )}
         <ListItemButton component={Link} to="/">
           <ListItemText>
             <Logout />
           </ListItemText>
-          </ListItemButton>
+        </ListItemButton>
       </List>
     </Box>
   );
