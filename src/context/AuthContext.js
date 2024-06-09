@@ -1,28 +1,22 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import axiosInstance from '../services/axiosInstance';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axiosInstance.get('/auth/check');
-        setIsAuthenticated(response.data.isAuthenticated);
-        setUser(response.data.user);
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser(null);
-      }
-    };
-    checkAuth();
+    const authToken = localStorage.getItem('authToken');
+    const role = localStorage.getItem('role'); // Retrieve the user role from local storage
+    if (authToken) {
+      setIsAuthenticated(true);
+      setUserRole(role); // Set the user role
+    }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, userRole, setUserRole }}>
       {children}
     </AuthContext.Provider>
   );
