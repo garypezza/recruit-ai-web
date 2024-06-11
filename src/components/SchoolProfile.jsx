@@ -32,26 +32,28 @@ const SchoolProfile = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} className="info-box">
-            <Typography variant="h6">Location</Typography>
-            <Typography>{school.Location}</Typography>
+            <Typography variant="h6">Coach Info</Typography>
+            <Typography>{school.CoachName}</Typography>
+            <Typography>{school.CoachTitle}</Typography>
+            <Button variant="contained" color="primary" className="compose-button">Compose</Button>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} className="info-box">
-            <Typography variant="h6">Type</Typography>
-            <Typography>{school.Type}</Typography>
+            <Typography variant="h6">Average Scores</Typography>
+            <Typography>{school.FirstPlayerAverageScore} - {school.FifthPlayerAverageScore}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} className="info-box">
-            <Typography variant="h6">Conference</Typography>
-            <Typography>{school.Conference}</Typography>
+            <Typography variant="h6">Spots</Typography>
+            <Typography>4 Spots</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} className="info-box">
-            <Typography variant="h6">Division</Typography>
-            <Typography>{school.Division}</Typography>
+            <Typography variant="h6">Good</Typography>
+            <Typography>Your scores: 40th percentile</Typography>
           </Paper>
         </Grid>
       </Grid>
@@ -63,6 +65,17 @@ const SchoolProfile = () => {
           <Typography>Sophomores: {school.Sophomores}</Typography>
           <Typography>Juniors: {school.Juniors}</Typography>
           <Typography>Seniors: {school.Seniors}</Typography>
+        </Paper>
+      </Box>
+
+      <Box mt={4}>
+        <Typography variant="h6">Email History with {school.School}</Typography>
+        <Paper elevation={3} className="info-box">
+          <Typography variant="body1">Recommendation</Typography>
+          <Typography>
+            Start with an introductory email to the coach using the introductory template.
+          </Typography>
+          <Button variant="contained" color="primary" className="compose-button">Compose</Button>
         </Paper>
       </Box>
     </Container>

@@ -30,7 +30,7 @@ export default function Sidebar() {
           <ListItemText primary="My Profile" />
         </ListItemButton>
         <Divider />
-        <ListItemButton component={Link} to="/schools/6667a35a98033711a46ef61e">
+        <ListItemButton component={Link} to="/schools/6667afc8a5325f7eca80523f">
           <ListItemIcon>
             <SchoolIcon />
           </ListItemIcon>
