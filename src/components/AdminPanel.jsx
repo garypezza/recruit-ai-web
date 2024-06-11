@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import StudentForm from './StudentForm';
 import UsersTable from './UsersTable';
 import axiosInstance from '../services/axiosInstance';
 
@@ -78,7 +77,6 @@ function AdminPanel() {
         Users List
       </Typography>
       <UsersTable users={users} />
-      <StudentForm />
     </Container>
   );
 }
