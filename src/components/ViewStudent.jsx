@@ -115,6 +115,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>
@@ -130,6 +131,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>
@@ -145,6 +147,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>
@@ -160,6 +163,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>
@@ -175,6 +179,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>
@@ -190,6 +195,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>
@@ -205,6 +211,7 @@ function ViewStudent() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                className="TextField"
               />
             </Grid>
           </Grid>

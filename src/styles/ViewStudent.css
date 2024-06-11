@@ -1,50 +1,66 @@
 .studentContainer {
   max-width: 600px;
-  margin-top: 16px;
+  margin: 0 auto;
 }
 
 .studentPaper {
-  padding: 16px;
-  margin-top: 16px;
-  border: 1px solid #ccc;
-}
-
-.studentBox {
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  color: #888; /* Lighten the text color for values */
-  margin-bottom: 16px; /* Adds spacing between boxes */
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
 }
 
 .studentTypographyHeader {
-  margin-top: 32px;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 
-.studentContainer .studentGridItemLabel {
-  font-weight: 800;
+.studentGridItemLabel {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 8px;
 }
 
-.valueText {
-  color: #aaa; /* Additional class for lightening value text */
+.TextField {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.TextField input {
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  margin-top: 20px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .studentContainer {
-    max-width: 100%;
-    padding: 8px;
+    padding: 10px;
   }
 
-  .studentPaper, .studentBox {
-    padding: 8px;
+  .studentPaper {
+    padding: 10px;
   }
 
   .studentTypographyHeader {
-    margin-top: 16px; /* Reduce top margin on smaller screens */
+    font-size: 1.5rem;
   }
-}
 
-.studentBox:focus-within {
-  border-color: #0056b3; /* Highlight the box when an element inside it is focused */
+  .TextField input {
+    font-size: 0.875rem;
+    padding: 8px;
+  }
+
+  button {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+  }
 }
