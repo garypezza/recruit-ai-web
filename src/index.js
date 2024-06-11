@@ -11,6 +11,7 @@ import Layout from './components/Layout';
 import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 import CreateUserPage from './components/CreateUserPage';
+import SchoolProfile from './components/SchoolProfile';
 import { StudentProvider } from './context/StudentContext';
 import { ModalProvider } from './context/ModalContext';
 import { AuthProvider } from './context/AuthContext';
@@ -60,6 +61,14 @@ root.render(
                       element={
                           <CreateUserPage />
                         }
+                    />
+                    <Route
+                      path="/schools/:id"
+                      element={
+                        <PrivateRoute>
+                          <SchoolProfile />
+                        </PrivateRoute>
+                      }
                     />
                   </Routes>
                 </Box>
