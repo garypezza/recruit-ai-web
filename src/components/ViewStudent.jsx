@@ -24,11 +24,13 @@ function ViewStudent() {
     const fetchStudent = async () => {
       try {
         const response = await axiosInstance.get('/users/students/');
-        const studentData = response.data[0];
-        setStudent({
-          ...studentData,
-          preferredMajors: studentData.preferredMajors?.join(', ') || ''
-        });
+        if (response.data.length > 0) {
+          const studentData = response.data[0];
+          setStudent({
+            ...studentData,
+            preferredMajors: studentData.preferredMajors?.join(', ') || ''
+          });
+        }
       } catch (error) {
         console.error('Error fetching student data:', error);
       }
@@ -47,17 +49,24 @@ function ViewStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Clone the student object and remove _id if it exists
+    const { _id, ...studentWithoutId } = student;
     const updatedStudent = {
-      ...student,
+      ...studentWithoutId,
       preferredMajors: student.preferredMajors.split(',').map(major => major.trim())
     };
-
+  
     try {
-      const response = await axiosInstance.put(`/students/${student._id}`, updatedStudent);
+      let response;
+      if (_id) {  // Check if the student object has an _id
+        response = await axiosInstance.put(`/students/${_id}`, updatedStudent);
+      } else {
+        response = await axiosInstance.post('/students/', updatedStudent);
+      }
       setStudent({
         ...response.data,
-        preferredMajors: response.data.preferredMajors.join(', ')
+        preferredMajors: Array.isArray(response.data.preferredMajors) ? response.data.preferredMajors.join(', ') : ''
       });
       setIsEditing(false);
     } catch (error) {
@@ -65,6 +74,8 @@ function ViewStudent() {
       alert('Failed to save student. Check console for details.');
     }
   };
+  
+  
 
   const handleCancel = () => {
     setIsEditing(false);
